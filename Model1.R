@@ -1,11 +1,13 @@
-y <- NULL
-a <- 1.5
+y <- NULL    # The generated volatility variable
+
+a <- 1.5     # The required parameters.
 b <- 5
 wfi <- 11
 stdev <- 35
 n <- 100
 u <- rnorm(n,0,stdev)
 x <- 1:n
+
 
 wf <- function(x,n,a,b)
 {

@@ -12,4 +12,6 @@ I used RStudio IDE (https://www.rstudio.com/products/rstudio/download/#download)
 
 ### Model-1
 
-In this model, we simulate volatility with the Weierstrass function. While the function is a sum of infinite series, the number of terms we use in the series is specified.
+In this model, we simulate volatility with the Weierstrass function. While the function is a sum of infinite series, the number of terms we use in the series is specified with wfi_iteration term. The objective of this part is to illustrate the idea with simulated stable and volatile periods, in which the trend of the time series fluctuates, rather than the variance of the residuals.
+
+The user may change the values of a, b, n, std_dev and wfi_iteration to see the result of different combinations of the parameters generating processes which ranges from seeming purely mathematical to closer to real-world time-series data.

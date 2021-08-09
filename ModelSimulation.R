@@ -151,12 +151,6 @@ list(
 
 
 
-
-
-
-
-
-
 # ================== 3. The simulated AR(1) time-series ================== #
 
 y_ar1 <- NULL

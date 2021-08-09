@@ -18,14 +18,17 @@ In lucid economic terms, one might be suggested that apart from modelling the va
 
 ### ModelSimulation
 
-In this model, we simulate volatility with the Weierstrass function. While the function is a sum of infinite series, the number of terms we use in the series is specified with wfi_iteration term. The objective of this part is to illustrate the _idea_ with simulated stable and volatile periods, in which the trend of the time series fluctuates, rather than the variance of the residuals.
+In this model, we simulate volatility with the Weierstrass function. While the function is a sum of infinite series, the number of terms we use in the series is specified with 'wfi_iteration' term. The objective of this part is to illustrate the _idea_ with simulated stable and volatile periods, in which the trend of the time series fluctuates, rather than the variance of the residuals.
 
-The user may change the values of a, b, n, std_dev and wfi_iteration to see the result of different combinations of the parameters generating processes which ranges from seeming purely mathematical to closer to real-world time-series data.
+The user may change the values of a, b, n, std_dev and wfi_iteration to see the result of different combinations of the parameters generating processes which ranges from seeming purely mathematical one to the closer to real-world time-series data.
 
 In the first part, the plot would show the differenced form of the time-series with this idea, while in the second part, the plot shows the AR(1) form of the time series. The trend is included in both parts to illustrate the idea.
 
 ![alt text]()
 
-In the second part, the plot would show the AR(1) form of the time-series with the same idea. The objective here is to show that the AR(1) trend is stable, and after the first difference, the variance-tests shows the same result as the previous one.
+
+![alt text]()
+
+In the third part, the plot would show the AR(1) form of the time-series with the same idea. The objective here is to show that the AR(1) trend is stable, and after the first difference, the variance-tests shows the same result as the previous one.
 
 ![alt text]()

@@ -230,8 +230,8 @@ for(i in 1:n)
                   
 plot(x,y_ar1,type="l",                                # the plot of the time-series
      xlab = 't',
-     ylim = c(min(min(trend_ar1), min(y_ar1))-stdev,
-              max(max(trend_ar1), max(y_ar1))+stdev)
+     ylim = c(min(min(trend_ar1), min(y_ar1))-std_dev,
+              max(max(trend_ar1), max(y_ar1))+std_dev)
 )
 lines(x,trend_ar1,col="red")                          # the plot of the trend
 

@@ -18,17 +18,22 @@ In lucid terms, one might be suggested that apart from modelling the variance of
 
 ### ModelSimulation
 
-In this model, we simulate volatility with the Weierstrass function. While the function is a sum of infinite series, the number of terms we use in the series is specified with 'wfi_iteration' term. The objective of this part is to illustrate the _idea_ with simulated stable and volatile periods, in which the trend of the time series fluctuates, rather than the variance of the residuals.
+In this section, we simulate volatility with the Weierstrass function. While the function is a sum of infinite series, number of terms we use in the series is specified with _wfi_iteration_ term. Objective of this part is to illustrate **the idea** with simulated stable and volatile periods, in which the trend of the time series fluctuates, rather than variance of the residuals.
 
-The user may change the values of a, b, n, std_dev and wfi_iteration to see the result of different combinations of the parameters generating processes which ranges from seeming purely mathematical one to the closer to real-world time-series data.
+![alt text](https://github.com/bosetridib/Volatility_Modelling/blob/main/ModelSimulation1.jpeg "Part 1")
 
-In the first part, the plot would show the differenced form of the time-series with this idea, while in the second part, the plot shows the AR(1) form of the time series. The trend is included in both parts to illustrate the idea.
+The user may change the values of _a_, _b_, _n_, _std_dev_ and _wfi_iteration_ in the beginning - to see the result of different combinations of the parameters generating processes ranging from seeming purely mathematical one to the closer to real-world time-series data.
 
-![alt text](https://github.com/bosetridib/Volatility_Modelling/blob/main/ModelSimulation1.jpeg)
+In the first part, the plot would show the zero-level autoregression or AR(0) form of the time-series with this idea, while in the third part, the plot shows the AR(1) form of the time series. The trend is included in both parts to illustrate the idea. In the second part, the plot shows how including an upward trend affects the same process. In the third part, the _rho_ variable is to specify the AR coefficient.
 
+![alt text](https://github.com/bosetridib/Volatility_Modelling/blob/main/ModelSimulation2.jpeg "Part 2")
 
-![alt text](https://github.com/bosetridib/Volatility_Modelling/blob/main/ModelSimulation2.jpeg)
+The trend (which is different from the upward trend included in the 2nd part) is included in all the plots. It is to shows how fluctuations in the trend only, resembles data which seems volatile in nature. The trend part is what's different from the IIDN(0,std_dev) part. The trend in the second part is a function of specified as u*t^v, which is included in the general trend.
 
-In the third part, the plot would show the AR(1) form of the time-series with the same idea. The objective here is to show that the AR(1) trend is stable, and after the first difference, the variance-tests shows the same result as the previous one.
+![alt text](https://github.com/bosetridib/Volatility_Modelling/blob/main/ModelSimulation3.jpeg "Part 3")
 
-![alt text](https://github.com/bosetridib/Volatility_Modelling/blob/main/ModelSimulation3.jpeg)
+All of the simulations resembles plots closer to the real-world data, but only for a specific range of values of the parameters. The trend's association to the stability and volatility of the data is what is the key here.
+
+### NLS Method
+
+In the real-world data, the testing would first require whether the data is distributed in stable and volatile process. For that, the variance test of several portions of the time-series should be performed. However, fitting of the Weierstrass function with proper parameters requires non-linear regression techniques. One of the techniques is to find parameters which minimize the residual sum squared. Since the range of the values of the parameters can be found with the simulations, we may have a set of viable initializing parameters, or a range of them.

@@ -1,5 +1,5 @@
 library(readxl)
-er <- read_excel("Res/R stuffs/Exchange Rate Daily.xls")
+er <- read_excel("Exchange Rate Daily.xls")
 er$Date <- as.Date(er$Date, format = "%d/%m/%Y")
 
 n <- length(er[[1]])

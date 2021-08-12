@@ -1,7 +1,0 @@
-library(normtest)
-library(tseries)
-library(forecast)
-library(tsoutliers)
-library(freqdom)
-library(mosaic)
-library(mosaicCalc)

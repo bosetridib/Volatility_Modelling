@@ -37,3 +37,9 @@ All of the simulations resembles plots closer to the real-world data, but only f
 ### NLS Method
 
 In the real-world data, the testing would first require whether the data is distributed in stable and volatile process. For that, the variance test of several portions of the time-series should be performed. However, fitting of the Weierstrass function with proper parameters requires non-linear regression techniques. One of the techniques is to find parameters which minimize the residual sum squared. Since the range of the values of the parameters can be found with the simulations, we may have a set of viable initializing parameters, or a range of them.
+
+The stable estimation have the following equations used for estimations.
+
+![alt text](https://github.com/bosetridib/Volatility_Modelling/blob/main/NLSStableEst.png "NLS Stable Estimation")
+
+The above equations are least square techniques used on the non-linear equation of the Weierstrass function.

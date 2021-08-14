@@ -40,10 +40,10 @@ In the real-world data, the testing would first require whether the data is dist
 
 The stable estimation have the following equations used for estimations.
 
-![alt text](https://github.com/bosetridib/Volatility_Modelling/blob/main/NLSstableEstA.png "NLS Stable Estimation")
+![alt text](https://github.com/bosetridib/Volatility_Modelling/blob/main/NLSstableEstA.png "NLS Stable Estimation for a")
 
 The solution of the following equation would give us the estimated parameter b.
 
-![alt text](https://github.com/bosetridib/Volatility_Modelling/blob/main/NLSstableEstB.png "NLS Stable Estimation")
+![alt text](https://github.com/bosetridib/Volatility_Modelling/blob/main/NLSstableEstB.png "NLS Stable Estimated b")
 
 The above equations are least square techniques used on the non-linear equation of the Weierstrass function.

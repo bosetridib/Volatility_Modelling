@@ -46,4 +46,4 @@ The solution of the following equation would give us the estimated parameter b.
 
 ![alt text](https://github.com/bosetridib/Volatility_Modelling/blob/main/NLSstableEstB.png "NLS Stable Estimated b")
 
-The above equations are least square techniques used on the non-linear equation of the Weierstrass function.
+The above equations are least square techniques used for the non-linear equation of the Weierstrass function.

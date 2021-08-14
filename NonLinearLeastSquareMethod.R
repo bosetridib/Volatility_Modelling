@@ -45,14 +45,19 @@ plot(x, y_nls)
 lines(x, y_nls_trend - fitted(model_nls_stable))
 
 # A manual calculation is also provided to check efficiency.
-coeffest <- function(beta)
+b_est_func <- function(b_coeff)
 {
-    (sum(y_nls * cos(beta*x)) * sum(x*sin(beta*2*x)))
-    - (2*sum(x*y_nls*sin(beta*x)) * sum((cos(beta*x))^2))
+    (
+      sum( y_nls * cos(b_coeff*x) ) * sum(x*sin(b_coeff*2*x))
+    ) -
+    (
+      2*sum( x*y_nls * sin(b_coeff*x) ) * sum( (cos(b_coeff*x))^2 )
+    )
 }
 
-b_est <- uniroot(coeffest, interval = c(b-3,b+3), extendInt = "yes")$root
-a_est <- sum(y_nls*cos(bcof * x))/sum((cos(bcof*x))^2)
+b_est <- uniroot(b_est_func, interval = c(b-10,b+10), extendInt = "yes")$root
+a_est <- sum( y_nls * cos(b_est*x) ) /
+  sum( (cos(b_est*x))^2 )
 
 cat("\014")
 

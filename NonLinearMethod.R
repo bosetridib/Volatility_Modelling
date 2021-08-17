@@ -11,7 +11,7 @@ wf <- function(x,n,a,b)
 }
 
 # The parameters initialization
-a <- 10
+a <- 100
 b <- 71
 # wf_iteration is 1, which means the data is in stable period
 
@@ -48,10 +48,10 @@ lines(x, y_nls_trend - fitted(model_nls_stable))
 b_est_func <- function(b_coeff)
 {
     (
-      sum( y_nls * cos(b_coeff*x) ) * sum(x*sin(b_coeff*2*x))
+      sum( x*y_nls * sin(b_coeff*x) ) * sum( (cos(b_coeff*x))^2 )
     ) -
     (
-      2*sum( x*y_nls * sin(b_coeff*x) ) * sum( (cos(b_coeff*x))^2 )
+      sum( y_nls * cos(b_coeff*x) ) * sum(x*sin(b_coeff*x)*sin(b_coeff*x))
     )
 }
 
@@ -59,6 +59,8 @@ b_est <- uniroot(b_est_func, interval = c(b-10,b+10), extendInt = "yes")$root
 a_est <- sum( y_nls * cos(b_est*x) ) /
   sum( (cos(b_est*x))^2 )
 
-cat("\014")
-
 c(a_est,b_est)
+
+# The plot of the data with the least square technique.
+plot(x, y_nls)
+lines(x, y_nls_trend - (a_est * cos(b_est * x)))

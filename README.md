@@ -36,14 +36,16 @@ All of the simulations resembles plots closer to the real-world data, but only f
 
 ### NLS Method
 
-In the real-world data, the testing would first require whether the data is distributed in stable and volatile process. For that, the variance test of several portions of the time-series should be performed. However, fitting of the Weierstrass function with proper parameters requires non-linear regression techniques. One of the techniques is to find parameters which minimize the residual sum squared. Since the range of the values of the parameters can be found with the simulations, we may have a set of viable initializing parameters, or a range of them.
+In the real-world data, the testing would first require whether the data is distributed in stable and volatile process. For that, the variance test of several portions of the time-series should be performed. However, fitting of the data with the Weierstrass function with proper parameters requires non-linear regression techniques. Since the range of the values of the parameters can be found with the simulations, we may have a set of viable initializing parameters, or a range of them.
 
-The stable estimation have the following equations used for estimations.
+Among several, one of the techniques is to find parameters which minimize the residual sum squared. The r-function _nls_ is also suitable for non-linear estimations. The Fourier analysis is also found to be used in this case.
+
+The estimation of the stable processes is done in the beginning. Apart from the _nls_ method, a manual calculation of the least-square estimates is also used. The math behind that is stated below.
+
+For the stable process, we have *wf_iteration* equals 1, and hence the residual sum squared can be found easily.
 
 ![alt text](https://github.com/bosetridib/Volatility_Modelling/blob/main/NLSstableEstA.png "NLS Stable Estimation for a")
 
-The solution of the following equation would give us the estimated parameter b.
-
 ![alt text](https://github.com/bosetridib/Volatility_Modelling/blob/main/NLSstableEstB.png "NLS Stable Estimated b")
 
-The above equations are least square techniques used for the non-linear equation of the Weierstrass function.
+The solution of the last equation would give us the estimated parameter _b_. With that, we can caluclate the estimated parameter _a_. In comparison, this method is found to be less efficient in practice: the estimated parameters with _nls_ method are much closer to the actual parameters used in generating the data, and the estimated _a_ is found to be _biased_ with the least square technique.

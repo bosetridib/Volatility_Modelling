@@ -32,6 +32,12 @@ for(i in 1:n)
   y_nls_trend[i] <- wf(x[i],1,a,b)
 }
 
+
+
+
+
+# -------------------------- 1. NLS function -------------------------- #
+
 # The nls function in R is used for the nonlinear estimations. However, it
 # requires some parameters with which it begins the estimations. The alpha
 # and beta are initialized with the data generating parameters.
@@ -43,6 +49,12 @@ summary(model_nls_stable)
 # The line function plots the difference between actual trend and fitted model
 plot(x, y_nls)
 lines(x, y_nls_trend - fitted(model_nls_stable))
+
+
+
+
+
+# ------------------- 2. Manual Calculations ------------------- #
 
 # A manual calculation is also provided to check efficiency.
 b_est_func <- function(b_coeff)
@@ -64,3 +76,38 @@ c(a_est,b_est)
 # The plot of the data with the least square technique.
 plot(x, y_nls)
 lines(x, y_nls_trend - (a_est * cos(b_est * x)))
+
+
+
+
+
+# --------------------- 3. Minimize RSS --------------------- #
+
+# Minimizing the Residual Sum Squared is to seek parameters for which the RSS
+# is minimum. The function to minimize would be as below.
+
+residual_sum_squared <- function(parameters) {
+  return(
+    sum(
+      (y_nls - parameters[1] * cos(parameters[2]*x))^2
+    )
+  )
+}
+
+# The setup to find the required coefficietns are as below.
+
+val <- NULL
+for (i in seq(0,100, by = 5)) {
+  for (j in seq(0,100, by = 5)){
+    temp_est <- optim(c(i,j) , residual_sum_squared)
+    val <- rbind(
+      val,
+      c(temp_est$par,temp_est$value)
+    )
+  }
+}
+
+est_parameters <- val[val[,3] == min(val[,3])][1:2]
+
+plot(x, y_nls)
+lines(x, y_nls_trend - (est_parameters[1] * cos(est_parameters[2] * x)))

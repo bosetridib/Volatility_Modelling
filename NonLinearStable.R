@@ -41,9 +41,9 @@ for(i in 1:n)
 # The nls function in R is used for the nonlinear estimations. However, it
 # requires some parameters with which it begins the estimations. The alpha
 # and beta are initialized with the data generating parameters.
-init_parameters <- list(alpha = a, beta = b)
+init_parameters_stable <- list(alpha = a, beta = b)
 
-model_nls_stable <- nls(y_stable ~ alpha*cos(beta*x), start = init_parameters)
+model_nls_stable <- nls(y_stable ~ alpha*cos(beta*x), start = init_parameters_stable)
 summary(model_nls_stable)
 
 # The line function plots the difference between actual trend and fitted model

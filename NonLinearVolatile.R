@@ -12,15 +12,15 @@ wf <- function(x,n,a,b)
 
 # The parameters initialization
 a <- 1.5
-b <- 23
+b <- 21
 # wf_iteration is not equal to 1, which means the data is volatile
-wfi <- 5
+wf_iteration <- 5
 
 y_volatile <- NULL
 y_volatile_trend <- NULL
 
 # The residual's IIDN parameters
-stdev <- 10
+stdev <- 40
 n <- 200
 u <- rnorm(n,0,stdev)
 x <- 1:n
@@ -29,8 +29,8 @@ x <- 1:n
 
 for(i in 1:n)
 {
-  y_volatile[i] <- wf(x[i],wfi,a,b) + u[i]
-  y_volatile_trend[i] <- wf(x[i],wfi,a,b)
+  y_volatile[i] <- wf(x[i],wf_iteration,a,b) + u[i]
+  y_volatile_trend[i] <- wf(x[i],wf_iteration,a,b)
 }
 
 # Regression result is below. Note that here also the parameters are

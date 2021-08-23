@@ -34,7 +34,6 @@ for(i in 1:n)
 # Regression result . . .
 slst <- list(alpha = a, beta = b)
 mods <- nls(zs ~ alpha*cos(beta*x), start = slst)
-options(digits = 12)
 summary(mods)
 
 plot(x,zs,ylim = c(min(zs) , max(zs)))

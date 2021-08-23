@@ -54,3 +54,36 @@ plot(x,y_volatile,ylim = c(min(y_volatile) , max(y_volatile)))
 # lines(x,y_volatile_trend - fitted(model_nls_volatile),col = "black")
 lines(x,y_volatile_trend,col = "blue")
 lines(x,fitted(model_nls_volatile),col = "brown")
+
+
+
+
+
+
+
+
+# -------------------- 1. Estimate wf_iteration -------------------- #
+
+residual_sum_squared <- function(parameters) {
+  for (i in 1:parameters[3]) {
+    y <- parameters[1]^i * cos(parameters[2]^i * x)
+  }
+  return( sum( (y_volatile - y)^2 ) )
+}
+
+# The setup to find the required coefficietns are as below.
+
+val <- NULL
+for (i in seq(0,100, by = 5)) {
+  for (j in seq(0,100, by = 5)){
+    for (k in 2:10) {
+      temp_est <- optim(c(i,j,k) , residual_sum_squared)
+      val <- rbind(  val,  c(temp_est$par,temp_est$value) )
+    }
+  }
+}
+
+est_parameters <- val[val[,4] == min(val[,4])][1:3]
+
+plot(x, y_volatile)
+lines(x, y_volatile_trend - (est_parameters[1] * cos(est_parameters[2] * x)))

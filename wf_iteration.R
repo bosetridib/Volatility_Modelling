@@ -1,9 +1,9 @@
 # The Weierstrass function
 
-wf <- function(x,n,a,b)
+wf <- function(x, wf_iterations, a, b)
 {
   v <- NULL
-  for(j in 1:n)
+  for(j in 1:wf_iterations)
   {
     v[j] <- (a^j)*cos((b^j)*x)
   }
@@ -42,7 +42,7 @@ for(i in 1:n)
 
 
 
-residual_sum_squared <- function(parameters) {
+est_function <- function(parameters) {
   for (i in 1:parameters[3]) {
     y <- parameters[1]^i * cos(parameters[2]^i * x)
   }
@@ -55,7 +55,7 @@ val <- NULL
 for (i in seq(0,100, by = 5)) {
   for (j in seq(0,100, by = 5)){
     for (k in 2:10) {
-      temp_est <- optim(c(i,j,k) , residual_sum_squared)
+      temp_est <- optim(c(i,j,k) , est_function)
       val <- rbind(  val,  c(temp_est$par,temp_est$value) )
     }
   }

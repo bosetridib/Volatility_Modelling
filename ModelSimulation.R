@@ -1,8 +1,8 @@
 # The Weierstrass function returning values with a,b, with wf_iteration terms
-wf <- function(x,n,a,b)
+wf <- function(x, wf_iterations, a, b)
 {
   v <- NULL
-  for(j in 1:n)
+  for(j in 1:wf_iterations)
   {
     v[j] <- (a^j)*cos((b^j)*x)    # the formula of each term in Weierstrass function
   }

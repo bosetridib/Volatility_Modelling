@@ -68,8 +68,7 @@ b_est_func <- function(b_coeff)
 }
 
 b_est <- uniroot(b_est_func, interval = c(b-10,b+10), extendInt = "yes")$root
-a_est <- sum( y_stable * cos(b_est*x) ) /
-  sum( (cos(b_est*x))^2 )
+a_est <- sum( y_stable * cos(b_est*x) ) / sum( (cos(b_est*x))^2 )
 
 c(a_est,b_est)
 

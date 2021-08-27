@@ -62,10 +62,39 @@ for (i in seq(0,100, by = 5)) {
 }
 
 est_parameters <- val[val[,4] == min(val[,4])][1:3]
-
+y <- NULL
 for (i in 1:n) {
   y[i] <- wf(i , est_parameters[3], est_parameters[1], est_parameters[2])
 }
 
 plot(x, y_volatile)
 lines(x, y_volatile_trend - y)
+
+
+
+
+
+
+
+
+residual_sum_square <- function(a, b, wfi) {
+  y1 <- NULL
+  for (i in 1:n) {
+    y1[i] <- wf(i , wfi, a, b)
+  }
+  return(sum(
+    (y_volatile - y1)^2
+  ))
+}
+
+val <- NULL
+for (i in seq(1,100, by = 5)) {
+  for (j in seq(1,100, by = 5)){
+    for (k in 2:10) {
+      value <- residual_sum_square(i, j, k)
+      val <- rbind(  val,  c(i, j, k, value) )
+    }
+  }
+}
+
+est_parameters <- val[val[,3] == min(val[,3])][1:2]

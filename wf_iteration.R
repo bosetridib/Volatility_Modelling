@@ -40,61 +40,77 @@ for(i in 1:n)
 
 
 
-
+# --------------- 1. Estimation of wf_iteration with optim --------------- #
 
 est_function <- function(parameters) {
+  
+  # Generating y-variable according to the Weierstrass function - first and
+  # second parameters are a and b while third one is the wf_iteration
   for (i in 1:parameters[3]) {
     y <- parameters[1]^i * cos(parameters[2]^i * x)
   }
+  
   return( sum( (y_volatile - y)^2 ) )
 }
 
-# The setup to find the required coefficietns are as below.
+# The setup to find the required coefficients are as below.
 
 val <- NULL
-for (i in seq(0,100, by = 5)) {
-  for (j in seq(0,100, by = 5)){
-    for (k in 2:10) {
+for (i in seq(0,100, by = 5))
+{
+  for (j in seq(0,100, by = 5))
+  {
+    for (k in 2:10)
+    {
       temp_est <- optim(c(i,j,k) , est_function)
       val <- rbind(  val,  c(temp_est$par,temp_est$value) )
     }
   }
 }
 
-est_parameters <- val[val[,4] == min(val[,4])][1:3]
-y <- NULL
+# The parameters with the minimum residual sum squared according to the optim
+# function.
+est_parameters1 <- val[val[,4] == min(val[,4])][1:3]
+
+# Estimated y with the above parameters
+y_est1 <- NULL
 for (i in 1:n) {
-  y[i] <- wf(i , est_parameters[3], est_parameters[1], est_parameters[2])
+  y_est1[i] <- wf(i , est_parameters[3], est_parameters[1], est_parameters[2])
 }
 
 plot(x, y_volatile)
-lines(x, y_volatile_trend - y)
+lines(x, y_volatile_trend - y_est1)
 
 
 
 
 
 
+# ------------ 2. Estimation of wf_iteration with min(RSS) ------------ #
 
-
+# The function that returns the RSS
 residual_sum_square <- function(a, b, wfi) {
-  y1 <- NULL
+  y <- NULL
   for (i in 1:n) {
-    y1[i] <- wf(i , wfi, a, b)
+    y[i] <- wf(i , wfi, a, b)
   }
   return(sum(
-    (y_volatile - y1)^2
+    (y_volatile - y)^2
   ))
 }
 
 val <- NULL
-for (i in seq(1,100, by = 5)) {
-  for (j in seq(1,100, by = 5)){
-    for (k in 2:10) {
+for (i in seq(0,10, by = 0.5))
+{
+  for (j in seq(0,50, by = 1))
+  {
+    for (k in 2:10)
+    {
       value <- residual_sum_square(i, j, k)
       val <- rbind(  val,  c(i, j, k, value) )
     }
   }
 }
 
-est_parameters <- val[val[,3] == min(val[,3])][1:2]
+# Estimated parameters with the above method
+est_parameters <- val[val[,4] == min(val[,4])][1:3]

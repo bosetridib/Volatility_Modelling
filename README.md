@@ -5,9 +5,9 @@ Volatility is present within several macroeconomic variables such as exchange ra
 ## Installation
 
 Nothing except R (https://www.r-project.org/) is currently required to run this project. Moreover, nothing except the built-in packages are required within R.
-  * [MS-Windows] (https://cran.r-project.org/bin/windows/base/ "link to install R")
-  * [MacOS] (https://cran.r-project.org/bin/macosx/ "link to install R")
-  * [Linux] (https://cran.r-project.org/bin/linux/ "link to install R") (installation from any package manager would be sufficient)
+  * [MS-Windows](https://cran.r-project.org/bin/windows/base/ "link to install R")
+  * [MacOS](https://cran.r-project.org/bin/macosx/ "link to install R")
+  * [Linux](https://cran.r-project.org/bin/linux/ "link to install R") (installation from any package manager would be sufficient)
 
 I used RStudio IDE (https://www.rstudio.com/products/rstudio/download/#download) which can be downloaded from their official website or from any available linux package managers. The project here is developed with RStudio IDE installed on two linux distribution - Arcolinux and on Solus OS, with which I carried out this project.
 

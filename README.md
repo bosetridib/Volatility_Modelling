@@ -1,10 +1,13 @@
 # Volatility Modeling with R
 
-Volatility is present within several macroeconomic variables such as exchange rate, inflation, interest rate, etc. Due to its presence, econometric analysis and forecasting is faced with several difficulties. The volatility can be located in the sudden change in variance of the data in the differenced form, and is modelled as such. Excluding the econometric treatment of volatility, this project attempts to model voaltility differently. It will be assumed that the variance is stable, while the trend is what would cause the volatility. A rigorous economic interpretation of such method is hard to carry out, but is certainly not impossible. However, the objective of this project is to model volatility in the INR-USD exchange rate with such method, hoping that it would be applicable in the general scenario.
+Volatility is present within several macroeconomic variables such as exchange rate, inflation, interest rate, etc. Due to its presence, econometric analysis and forecasting is faced with several difficulties. The volatility can be located in the sudden change in variance of the data in the differenced form. This project attempts to model volatility different than in the econometric treatment of volatility. It is assumed here that the variance is stable, while the trend is what causes the volatility. A rigorous economic interpretation of such method is hard to carry out, but is certainly not impossible. However, the objective of this project is to model volatility in the INR-USD exchange rate with such method, hoping that it would be applicable in the general scenario.
 
 ## Installation
 
-Nothing except R (https://www.r-project.org/) is currently required to run this project. Moreover, nothing except the built-in packages are required within R. The MS-Windows link to install R is https://cran.r-project.org/bin/windows/base/, and the MacOS link is https://cran.r-project.org/bin/macosx/. For linux one may see https://cran.r-project.org/bin/linux/, but installation from any package manager would be sufficient.
+Nothing except R (https://www.r-project.org/) is currently required to run this project. Moreover, nothing except the built-in packages are required within R.
+  * [MS-Windows] (https://cran.r-project.org/bin/windows/base/ "link to install R")
+  * [MacOS] (https://cran.r-project.org/bin/macosx/ "link to install R")
+  * [Linux] (https://cran.r-project.org/bin/linux/ "link to install R") (installation from any package manager would be sufficient)
 
 I used RStudio IDE (https://www.rstudio.com/products/rstudio/download/#download) which can be downloaded from their official website or from any available linux package managers. The project here is developed with RStudio IDE installed on two linux distribution - Arcolinux and on Solus OS, with which I carried out this project.
 
@@ -48,7 +51,7 @@ For the stable process, we have *wf_iteration* equals 1, and hence the residual 
 
 ![alt text](https://github.com/bosetridib/Volatility_Modelling/blob/main/NLSstableEstB.png "NLS Stable Estimated b")
 
-The solution of the last equation would give us the estimated parameter _b_. With that, we can caluclate the estimated parameter _a_. In comparison, this method is found to be less efficient in practice: the estimated parameters with _nls_ method are much closer to the actual parameters used in generating the data, and the estimated _a_ is found to be _biased_ with the least square technique.
+The solution of the last equation would give us the estimated parameter _b_. With that, we can calculate the estimated parameter _a_. In comparison, this method is found to be less efficient in practice: the estimated parameters with _nls_ method are much closer to the actual parameters used in generating the data, and the estimated _a_ is found to be _biased_ with the least square technique.
 
 ### Non Linear Volatile
 

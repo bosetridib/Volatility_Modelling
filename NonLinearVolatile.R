@@ -38,7 +38,7 @@ for(i in 1:n)
 # ====================== Estimation of wf_iteration ====================== #
 
 # The first step to estimate the volatile process would be to estimate the
-# wf_iteration pramaeter. This is conducted here in two parts.
+# wf_iteration paramaeter. This is conducted here in two parts.
 
 
 # --------------- 1. With optim function --------------- #
@@ -76,14 +76,14 @@ est_parameters1 <- val[val[,4] == min(val[,4])][1:3]
 # Estimated y with the above parameters
 y_est1 <- NULL
 for (i in 1:n) {
-  y_est1[i] <- wf(i , est_parameters[3], est_parameters[1], est_parameters[2])
+  y_est1[i] <- wf(i , est_parameters1[3], est_parameters1[1], est_parameters1[2])
 }
 
 plot(x, y_volatile)
 lines(x, y_volatile_trend - y_est1)
 
 # Estimated wf_iteration with this method
-wf_iteration_est1 <- est_parameters1[3]
+wf_iteration_est1 <- round(est_parameters1[3],0)
 
 
 

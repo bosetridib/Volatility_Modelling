@@ -82,6 +82,9 @@ for (i in 1:n) {
 plot(x, y_volatile)
 lines(x, y_volatile_trend - y_est1)
 
+# Estimated wf_iteration with this method
+wf_iteration_est1 <- est_parameters1[3]
+
 
 
 
@@ -113,7 +116,10 @@ for (i in seq(0,10, by = 0.5))
 }
 
 # Estimated parameters with the above method
-est_parameters <- val[val[,4] == min(val[,4])][1:3]
+est_parameters2 <- val[val[,4] == min(val[,4])][1:3]
+
+# Estimated wf_iteration with this method
+wf_iteration_est2 <- est_parameters2[3]
 
 
 

@@ -35,13 +35,9 @@ for(i in 1:n)
 
 
 
-# ====================== Estimation of wf_iteration ====================== #
-
-# The first step to estimate the volatile process would be to estimate the
-# wf_iteration paramaeter. This is conducted here in two parts.
 
 
-# --------------- 1. With optim function --------------- #
+# ----------------------- 1. With optim function ----------------------- #
 
 est_function <- function(parameters) {
   
@@ -89,7 +85,7 @@ wf_iteration_est1 <- round(est_parameters1[3],0)
 
 
 
-# ------------------ 2. With min(RSS) ------------------ #
+# ------------------------ 2. With min(RSS) ------------------------ #
 
 # The function that returns the RSS
 residual_sum_square <- function(a, b, wfi) {
@@ -118,19 +114,28 @@ for (i in seq(0,10, by = 0.5))
 # Estimated parameters with the above method
 est_parameters2 <- val[val[,4] == min(val[,4])][1:3]
 
+# Estimated y with the above parameters
+y_est2 <- NULL
+for (i in 1:n) {
+  y_est2[i] <- wf(i , est_parameters2[3], est_parameters2[1], est_parameters2[2])
+}
+
+plot(x, y_volatile)
+lines(x, y_volatile_trend - y_est2)
+
 # Estimated wf_iteration with this method
-wf_iteration_est2 <- est_parameters2[3]
+wf_iteration_est2 <- round(est_parameters2[3],0)
 
 
 
 
 
-# ==================== Estimation of a and b ==================== #
-
-# Regression result is below. Note that here also the parameters are
-# given in the 'start' list. The control section is to create the min factor
-# lower enough to perform the iterations, and the warnOnly is used to
-# ensure that the iterations complete without errors.
+# -------------------------- 3. With nls -------------------------- #
+# Regression result is below. It is assumed that wf_iteration is known. Note
+# that here also the actual parameters are given in the 'start' list. The
+# control section is to create the min factor lower enough to perform the
+# iterations, and the warnOnly is used to ensure that the iterations
+# complete without errors.
 
 init_parameters_volatile <- list(A = a, B = b)
 

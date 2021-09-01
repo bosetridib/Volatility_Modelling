@@ -43,8 +43,8 @@ est_function <- function(parameters) {
   
   # Generating y-variable according to the Weierstrass function - first and
   # second parameters are a and b while third one is the wf_iteration
-  for (i in 1:parameters[3]) {
-    y <- parameters[1]^i * cos(parameters[2]^i * x)
+  for (i in 1:n) {
+    y[i] <- wf(i,parameters[1],parameters[2],parameters[3])
   }
   
   return( sum( (y_volatile - y)^2 ) )
@@ -59,7 +59,7 @@ for (i in seq(0,100, by = 5))
   {
     for (k in 2:10)
     {
-      temp_est <- optim(c(i,j,k) , est_function)
+      temp_est <- optim(c(k,i,j) , est_function)
       val <- rbind(  val,  c(temp_est$par,temp_est$value) )
     }
   }
@@ -69,17 +69,18 @@ for (i in seq(0,100, by = 5))
 # function.
 est_parameters1 <- val[val[,4] == min(val[,4])][1:3]
 
+# Estimated wf_iteration with this method
+wf_iteration_est1 <- round(est_parameters1[3],0)
+
 # Estimated y with the above parameters
 y_est1 <- NULL
 for (i in 1:n) {
-  y_est1[i] <- wf(i , est_parameters1[3], est_parameters1[1], est_parameters1[2])
+  y_est1[i] <- wf(i , wf_iteration_est1, est_parameters1[2], est_parameters1[3])
 }
 
 plot(x, y_volatile)
-lines(x, y_volatile_trend - y_est1)
-
-# Estimated wf_iteration with this method
-wf_iteration_est1 <- round(est_parameters1[3],0)
+lines(x, y_volatile_trend, col="blue")
+lines(x, y_est1)
 
 
 

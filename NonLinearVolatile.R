@@ -70,7 +70,7 @@ for (i in seq(0,100, by = 5))
 est_parameters1 <- val[val[,4] == min(val[,4])][1:3]
 
 # Estimated wf_iteration with this method
-wf_iteration_est1 <- round(est_parameters1[3],0)
+wf_iteration_est1 <- round(est_parameters1[1],0)
 
 # Estimated y with the above parameters
 y_est1 <- NULL
@@ -115,18 +115,19 @@ for (i in seq(0,10, by = 0.5))
 # Estimated parameters with the above method
 est_parameters2 <- val[val[,4] == min(val[,4])][1:3]
 
-# Estimated y with the above parameters
-y_est2 <- NULL
-for (i in 1:n) {
-  y_est2[i] <- wf(i , est_parameters2[3], est_parameters2[1], est_parameters2[2])
-}
-
-plot(x, y_volatile)
-lines(x, y_volatile_trend - y_est2)
-
 # Estimated wf_iteration with this method
 wf_iteration_est2 <- round(est_parameters2[3],0)
 
+# Estimated y with the above parameters
+y_est2 <- NULL
+for (i in 1:n) {
+  y_est2[i] <- wf(i , wf_iteration_est2, est_parameters2[1], est_parameters2[2])
+}
+
+plot(x, y_volatile)
+lines(x, y_volatile_trend, col = "blue")
+lines(x, y_est2)
+lines(x, y_est2 - y_volatile_trend, col = "blue")
 
 
 

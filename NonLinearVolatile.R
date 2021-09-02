@@ -43,6 +43,7 @@ est_function <- function(parameters) {
   
   # Generating y-variable according to the Weierstrass function - first and
   # second parameters are a and b while third one is the wf_iteration
+  y <- NULL
   for (i in 1:n) {
     y[i] <- wf(i,parameters[1],parameters[2],parameters[3])
   }
@@ -68,6 +69,7 @@ for (i in seq(0,100, by = 5))
 # The parameters with the minimum residual sum squared according to the optim
 # function.
 est_parameters1 <- val[val[,4] == min(val[,4])][1:3]
+# est_parameters1 <- c(7.981321, 1.277167, 35.578157)
 
 # Estimated wf_iteration with this method
 wf_iteration_est1 <- round(est_parameters1[1],0)
@@ -78,9 +80,9 @@ for (i in 1:n) {
   y_est1[i] <- wf(i , wf_iteration_est1, est_parameters1[2], est_parameters1[3])
 }
 
-plot(x, y_volatile)
-lines(x, y_volatile_trend, col="blue")
-lines(x, y_est1)
+# Plot of the actual and estimated residual
+plot(x,u, type = "l")
+lines(x, y_volatile - y_est1, lty = 2)
 
 
 
@@ -114,6 +116,7 @@ for (i in seq(0,10, by = 0.5))
 
 # Estimated parameters with the above method
 est_parameters2 <- val[val[,4] == min(val[,4])][1:3]
+# est_parameters2 <- c(3.5, 4.0, 2.0)
 
 # Estimated wf_iteration with this method
 wf_iteration_est2 <- round(est_parameters2[3],0)
@@ -124,10 +127,10 @@ for (i in 1:n) {
   y_est2[i] <- wf(i , wf_iteration_est2, est_parameters2[1], est_parameters2[2])
 }
 
-plot(x, y_volatile)
-lines(x, y_volatile_trend, col = "blue")
-lines(x, y_est2)
-lines(x, y_est2 - y_volatile_trend, col = "blue")
+# Plot of the actual and estimated residual
+plot(x,u, type = "l")
+lines(x, y_volatile - y_est2, lty = 2)
+
 
 
 
@@ -150,8 +153,6 @@ model_nls_volatile <- nls(
 )
 summary(model_nls_volatile)
 
-# The plots are below.
-plot(x,y_volatile,ylim = c(min(y_volatile) , max(y_volatile)))
-# lines(x,y_volatile_trend - fitted(model_nls_volatile),col = "black")
-lines(x,y_volatile_trend,col = "blue")
-lines(x,fitted(model_nls_volatile),col = "brown")
+# Plot of the actual and estimated residual
+plot(x,u, type = "l")
+lines(x, y_volatile - fitted(model_nls_volatile), lty = 2)

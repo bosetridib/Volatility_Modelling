@@ -1,22 +1,22 @@
 # Volatility Modeling with R
 
-Volatility is present within several macroeconomic variables such as exchange rate, inflation, interest rate, etc. Due to its presence, econometric analysis and forecasting are faced with several difficulties. The volatility can be located in the sudden change in variance of the data in the differenced form. This project attempts to model volatility differently than in the econometric treatment of volatility. It is assumed here that the variance is stable, while the trend is what causes the volatility. A rigorous economic interpretation of such a method is hard to carry out but is certainly not impossible. However, the objective of this project is to model volatility in the INR-USD exchange rate with such a method, hoping that it would be applicable in the general scenario.
+Volatility is present within several macroeconomic variables such as exchange rate, inflation, interest rate, etc. Due to its presence, econometric analysis and forecasting are faced with several difficulties. The volatility can be located in the sudden change in variance of the data in the _differenced_ form. This project attempts to model volatility differently than in the econometric treatment of volatility. It is assumed here that the variance is stable, while the trend is what causes the volatility. A rigorous economic interpretation of such a method is hard to carry out but is certainly not impossible. However, the objective of this project is to model volatility in the INR-USD exchange rate with such a method, hoping that it would be applicable in the general scenario.
 
 ## Installation
 
-[R](https://www.r-project.org/) is required to execute this project. Nothing except the built-in packages are required within R.
+[R](https://www.r-project.org/) is required to execute this project. Link to install R on different OS are:
 
   * [Linux](https://cran.r-project.org/bin/linux/ "link to install R") (installation from any package manager would be sufficient)
   * [MS-Windows](https://cran.r-project.org/bin/windows/base/ "link to install R")
   * [MacOS](https://cran.r-project.org/bin/macosx/ "link to install R")
 
-The project here is developed with [RStudio IDE](https://www.rstudio.com/products/rstudio/download/#download "Download RStudio") installed on two Linux distributions - [ArcoLinux](https://arcolinux.com/) and on [Solus OS](https://getsol.us/home/).
+Nothing except the built-in packages are required within R. The project here is developed with [RStudio IDE](https://www.rstudio.com/products/rstudio/download/#download "Download RStudio") (installed on [ArcoLinux](https://arcolinux.com/) and on [Solus OS](https://getsol.us/home/)).
 
 ## The Project and the Idea
 
-That volatility can be explained by the trend and not the variance, is a novel idea. But to illustrate, and even successfully execute the testing of this idea requires simulations. As the simulations were done do reflects, the real-world data, yet at least partially, we go further and re-estimate the parameters of the simulated models to establish the applicable methods.
+The project aims to illustrate the novel idea that volatility can be explained by the trend, and not by the variance. The project involves simulation and re-estimation of the simulated data such that those estimation techniques can be executed on the real-world data.
 
-In lucid terms, one might be suggested that apart from modeling the variance of the differenced form of the data, one may consider modeling the trend which would be more intuitive than the general definitions. If one argues that the fluctuations in the data are not just _noise_ but also a fluctuation of _habit/behavior_ of the variable, then one might come to a better understanding of the economic interpretation behind the data.
+In lucid terms, the idea suggests that apart from modeling the variance of the _differenced_ form of the data with the usual ARIMA modeling, one may consider modeling the trend which would be more intuitive than the general definitions. If one argues that the fluctuations in the data are not just _noise_ but also a fluctuation of _habit/behavior_ of the variable, then one might come to a better understanding of the economic interpretation behind the data.
 
 ## The Models
 

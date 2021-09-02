@@ -81,12 +81,19 @@ for (i in 1:n) {
   y_est1[i] <- wf(i , wf_iteration_est1, est_parameters1[2], est_parameters1[3])
 }
 
+default_par <- par()
+par(mfrow = c(1,2))
+
 # Plot of the actual and estimated residual
 plot(x,u, type = "l")
 lines(x, y_volatile - y_est1, lty = 2)
 
+# Plot of the actual and estimated trend
 plot(x, y_volatile_trend, type = "l")
 lines(x, y_est1, lty = 2)
+
+par(default_par)
+
 
 
 
@@ -130,9 +137,14 @@ for (i in 1:n) {
   y_est2[i] <- wf(i , wf_iteration_est2, est_parameters2[1], est_parameters2[2])
 }
 
+default_par <- par()
+par(mfrow = c(1,2))
+
 # Plot of the actual and estimated residual
 plot(x,u, type = "l")
 lines(x, y_volatile - y_est2, lty = 2)
+
+par(default_par)
 
 
 

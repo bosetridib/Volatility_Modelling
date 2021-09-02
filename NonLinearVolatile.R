@@ -144,6 +144,10 @@ par(mfrow = c(1,2))
 plot(x,u, type = "l")
 lines(x, y_volatile - y_est2, lty = 2)
 
+# Plot of the actual and estimated trend
+plot(x, y_volatile_trend, type = "l")
+lines(x, y_est2, lty = 2)
+
 par(default_par)
 
 
@@ -168,7 +172,16 @@ model_nls_volatile <- nls(
 )
 summary(model_nls_volatile)
 
+default_par <- par()
+par(mfrow = c(1,2))
+
 # Plot of the actual and estimated residual
 plot(x,u, type = "l")
 lines(x, y_volatile - fitted(model_nls_volatile), lty = 2)
+
+# Plot of the actual and estimated trend
+plot(x, y_volatile_trend, type = "l")
+lines(x, fitted(model_nls_volatile), lty = 2)
+
+
 rm(.Random.seed, envir=globalenv())

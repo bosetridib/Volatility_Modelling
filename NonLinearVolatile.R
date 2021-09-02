@@ -1,4 +1,4 @@
-set.seed(101)
+set.seed(1)
 # The Weierstrass function
 
 wf <- function(x, wf_iterations, a, b)
@@ -70,7 +70,7 @@ for (i in seq(0,100, by = 5))
 # The parameters with the minimum residual sum squared according to the optim
 # function.
 est_parameters1 <- val[val[,4] == min(val[,4])][1:3]
-# est_parameters1 <- c(7.981321, 1.277167, 35.578157)
+# est_parameters1 <- c(5.250519, 1.376494, 99.367226)
 
 # Estimated wf_iteration with this method
 wf_iteration_est1 <- round(est_parameters1[1],0)
@@ -85,6 +85,8 @@ for (i in 1:n) {
 plot(x,u, type = "l")
 lines(x, y_volatile - y_est1, lty = 2)
 
+plot(x, y_volatile_trend, type = "l")
+lines(x, y_est1, lty = 2)
 
 
 
@@ -117,7 +119,7 @@ for (i in seq(0,10, by = 0.5))
 
 # Estimated parameters with the above method
 est_parameters2 <- val[val[,4] == min(val[,4])][1:3]
-# est_parameters2 <- c(3.5, 4.0, 2.0)
+# est_parameters2 <- c(1.5,19.0,5.0)
 
 # Estimated wf_iteration with this method
 wf_iteration_est2 <- round(est_parameters2[3],0)

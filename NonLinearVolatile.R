@@ -1,3 +1,4 @@
+set.seed(101)
 # The Weierstrass function
 
 wf <- function(x, wf_iterations, a, b)
@@ -156,3 +157,4 @@ summary(model_nls_volatile)
 # Plot of the actual and estimated residual
 plot(x,u, type = "l")
 lines(x, y_volatile - fitted(model_nls_volatile), lty = 2)
+rm(.Random.seed, envir=globalenv())

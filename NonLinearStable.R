@@ -1,3 +1,4 @@
+set.seed(101)
 # The Weierstrass function
 
 wf <- function(x, wf_iterations, a, b)
@@ -110,3 +111,4 @@ est_parameters <- val[val[,3] == min(val[,3])][1:2]
 
 plot(x, y_stable)
 lines(x, y_stable_trend - (est_parameters[1] * cos(est_parameters[2] * x)))
+rm(.Random.seed, envir=globalenv())

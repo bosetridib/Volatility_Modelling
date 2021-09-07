@@ -22,34 +22,36 @@ In lucid terms, the idea suggests that apart from modeling the variance of the _
 
 ### ModelSimulation
 
-In this section, we simulate volatility with the Weierstrass function. While the function is a sum of infinite series, number of terms we use in the series is specified with _wfi_iteration_ term. Objective of this part is to illustrate **the idea** with simulated stable and volatile periods, in which the trend of the time series fluctuates, rather than variance of the residuals.
+In this section, we simulate volatility with the [Weierstrass function](https://en.wikipedia.org/wiki/Weierstrass_function). While the function is a sum of infinite series, number of terms we use in the series is specified with _wfi_iteration_ term. Objective of this part is to illustrate **the idea** with simulated stable and volatile periods, in which the trend of the time series fluctuates, rather than variance of the residuals.
 
-<img src = "https://github.com/bosetridib/Volatility_Modelling/blob/main/images/ModelSimulation1.jpeg" width="400" height="300"/>
+![alt text](https://github.com/bosetridib/Volatility_Modelling/blob/main/images/ModelSimulation1.jpeg "Part 1")
 
 The user may change the values of _a_, _b_, _n_, _std_dev_ and _wfi_iteration_ in the beginning - to see the result of different combinations of the parameters generating processes ranging from seeming purely mathematical one to the closer to real-world time-series data.
 
-In the first part, the plot would show the zero-level autoregression (or AR(0)) form of the time-series with this idea, while in the third part, the plot shows the AR(1) form of the time series. The trend is included in both parts to illustrate the idea. In the second part, the plot shows how including an upward trend affects the same process. In the third part, the _rho_ variable is to specify the AR coefficient.
+In the first part, the plot would show the simulation at zero-level autoregression (or AR(0)) form of the time-series with this idea, while in the third part, the plot shows the AR(1) form of the time series. The trend is included in all the plots to illustrate the idea. In the second part, the plot shows how including an upward trend (in addition to the fluctuating trend included) affects the same process. In the third part, the _rho_ variable is to specify the AR coefficient.
 
 ![alt text](https://github.com/bosetridib/Volatility_Modelling/blob/main/images/ModelSimulation2.jpeg "Part 2")
 
-The trend (which is different from the upward trend included in the 2nd part) is included in all the plots. It is to shows how fluctuations in the trend only, resembles data which seems volatile in nature. The trend part is what's different from the IIDN(0,std_dev) part. The trend in the second part is a function of specified as u*t^v, which is included in the general trend.
+The trend is included in all the plots to shows how fluctuations in the trend only, resembles data which seems volatile in nature. The trend variable is what's different from the IIDN(0,std_dev) residual in the data. The trend in the second part is a function of specified as _c*(t^n)_, which is added to the general trend. One may alter the constant _c_ and the power _n_ to alter the upward trend by making it a line, parabola or any non-linear curvature.
 
-![alt text](https://github.com/bosetridib/Volatility_Modelling/blob/main/ModelSimulation3.jpeg "Part 3")
+![alt text](https://github.com/bosetridib/Volatility_Modelling/blob/main/images/ModelSimulation3.jpeg "Part 3")
 
-All of the simulations resembles plots closer to the real-world data, but only for a specific range of values of the parameters. The trend's association to the stability and volatility of the data is what is the key here.
+All of the simulations resembles plots closer to the real-world data, but only for a specific range of values of the parameters _a_, _b_, and _wfi_iteration_. The trend's association to the stability and volatility of the data is what is the key here - the data is volatile only in the period from 25 to 75 percentile, and is stable in both ends.
 
 ### Non Linear Stable
 
-In the real-world data, the testing would first require whether the data is distributed in stable and volatile process. For that, the variance test of several portions of the time-series should be performed. However, fitting of the data with the Weierstrass function with proper parameters requires non-linear regression techniques. Since the range of the values of the parameters can be found with the simulations, we may have a set of viable initializing parameters, or a range of them.
+In the real-world data, the testing would first require to seek whether the data is distributed in stable and volatile process. For that, the variance test of several portions of the time-series can be performed. However, fitting of the data with the _Weierstrass function_ with proper parameters requires non-linear regression techniques. Since the range of the values of the parameters can be found with the simulations, we may have a set of viable initializing parameters, or a range of them.
 
-Among several, one of the techniques is to find parameters which minimize the residual sum squared. The r-function _nls_ is also suitable for non-linear estimations. The Fourier analysis is also found to be used in this case.
+Among several, one of the techniques is to find parameters which minimize the residual sum squared. The _nls_ function in R is also suitable for non-linear estimations. The Fourier analysis is also found to be useful in this case, but is excluded for now.
 
 The estimation of the stable processes is done in the beginning. Apart from the _nls_ method, a manual calculation of the least-square estimates is also used. The math behind that is stated below.
 
 For the stable process, we have *wf_iteration* equals 1, and hence the residual sum squared can be found easily.
 
+<img src="https://github.com/bosetridib/Volatility_Modelling/blob/main/images/NLSstableEstA.png" width=400/>
 ![alt text](https://github.com/bosetridib/Volatility_Modelling/blob/main/images/NLSstableEstA.png "NLS Stable Estimation for a")
 
+<img src="https://github.com/bosetridib/Volatility_Modelling/blob/main/images/NLSstableEstB.png" width=400/>
 ![alt text](https://github.com/bosetridib/Volatility_Modelling/blob/main/images/NLSstableEstB.png "NLS Stable Estimated b")
 
 The solution of the last equation would give us the estimated parameter _b_. With that, we can calculate the estimated parameter _a_. In comparison, this method is found to be less efficient in practice: the estimated parameters with _nls_ method are much closer to the actual parameters used in generating the data, and the estimated _a_ is found to be _biased_ with the least square technique.

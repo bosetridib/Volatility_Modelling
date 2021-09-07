@@ -1,16 +1,26 @@
+# ================= Estimation of INR-USD Exchange Rate ================= #
+
+# The loading of dataset from the xls file can be done easily with the
+# read_excel function in the readxl package. The date variable is in character
+# format, and is converted to the date-datatype in R.
 library(readxl)
 er <- read_excel("Exchange Rate Daily.xls")
 er$Date <- as.Date(er$Date, format = "%d/%m/%Y")
 
+# The number of observations can be found with the length of first column.
 n <- length(er[[1]])
 
+# The supposedly volatile data can be first-order differenced, and is then
+# plotted.
 deltausd <- diff(er$USD)
 plot(er$Date, er$USD, type="l")
 plot(er$Date[-n], deltausd, type="l")
-acf(deltausd, lag.max = 0.8*n)
-pacf(deltausd, lag.max = 0.8*n)
 
-# Variance change . . .
+# --------------------- 1. Splitting Dataset --------------------- #
+
+# The change in variance from period to period is done with the breaking the
+# data in several small intervals. The plot gives us a visual representation
+# of how the variance of several periods in the data is significantly different.
 
 varusd <- NULL
 br <- 100
@@ -20,29 +30,18 @@ for (i in 1:(n/br))
   varusd[i] <- var(deltausd[((br*(i-1))+1) : (br*i)])
 }
 
-pardef <- par()
-par(mfrow=c(2,2))
-
 plot(varusd, type="l")
-plot(varusd[1:10], type="l")
-plot(varusd[10:35], type="l")
-plot(varusd[35:48], type="l")
 
-par(pardef)
-
-# Regression test . . .
+# Now, the data seems to begin with unstable variance at 10th break, which then
+# ends at 37th break.
 
 deltausds1 <- deltausd[1:(10*br)]
-deltausdv <- deltausd[(10*br):(35*br)]
-deltausds2 <- deltausd[(35*br):(48*br)]
+deltausdv <- deltausd[(10*br):(36*br)]
+deltausds2 <- deltausd[(37*br):(48*br)]
+
 xs1 <- 1:length(deltausds1)
 xv <- 1:length(deltausdv)
 xs2 <- 1:length(deltausds2)
-llimit <- 0.0001
-ulimit <- 10000
-
-
-
 
 # Regression for s1 . . .
 
@@ -51,6 +50,9 @@ coeffests1 <- function(betas1)
   (sum(deltausds1 * cos(betas1*xs1)) * sum(xs1*sin(betas1*2*xs1)))
   - (2*sum(xs1*deltausds1*sin(betas1*xs1)) * sum((cos(betas1*xs2))^2))
 }
+
+llimit <- 0.0001
+ulimit <- 10000
 
 bcofs1 <- uniroot(coeffests1, interval = c(llimit,ulimit), extendInt = "yes")$root
 acofs1 <- sum(deltausds1*cos(bcofs1 * xs1))/sum((cos(bcofs1*xs1))^2)

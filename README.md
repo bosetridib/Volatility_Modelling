@@ -4,7 +4,7 @@ Volatility is present within several macroeconomic variables such as exchange ra
 
 ## Installation
 
-[R](https://www.r-project.org/) is required to execute this project. Link to install R on different OS are:
+[R](https://www.r-project.org/) is required to execute this project. Link to install R on different OS:
 
   * [Linux](https://cran.r-project.org/bin/linux/ "link to install R") (installation from any package manager would be sufficient)
   * [MS-Windows](https://cran.r-project.org/bin/windows/base/ "link to install R")
@@ -16,7 +16,7 @@ Nothing except the built-in packages are required within R. The project here is 
 
 The project aims to illustrate the novel idea that volatility can be explained by the trend, and not by the variance. The project involves simulation and re-estimation of the simulated data such that those estimation techniques can be executed on the real-world data.
 
-In lucid terms, the idea suggests that apart from modeling the variance of the _differenced_ form of the data with the usual ARIMA modeling, one may consider modeling the trend which would be more intuitive than the general definitions. If one argues that the fluctuations in the data are not just _noise_ but also a fluctuation of _habit/behavior_ of the variable, then one might come to a better understanding of the economic interpretation behind the data.
+In lucid terms, the idea suggests that apart from modeling the variance of the _differenced_ form of the data with the usual _GARCH_ modeling, one may consider modeling the trend which would be more intuitive. If one argues that the fluctuations in the data are not just _noise_ but also a fluctuation of _habit/behavior_ of the variable, then one might come to a better, or at least different, understanding of the economic interpretation behind the data.
 
 ## The Models
 
@@ -24,7 +24,7 @@ In lucid terms, the idea suggests that apart from modeling the variance of the _
 
 In this section, we simulate volatility with the Weierstrass function. While the function is a sum of infinite series, number of terms we use in the series is specified with _wfi_iteration_ term. Objective of this part is to illustrate **the idea** with simulated stable and volatile periods, in which the trend of the time series fluctuates, rather than variance of the residuals.
 
-![alt text](https://github.com/bosetridib/Volatility_Modelling/blob/main/images/ModelSimulation1.jpeg "Part 1")
+![alt text](https://github.com/bosetridib/Volatility_Modelling/blob/main/images/ModelSimulation1.jpeg "Part 1" = 250x250)
 
 The user may change the values of _a_, _b_, _n_, _std_dev_ and _wfi_iteration_ in the beginning - to see the result of different combinations of the parameters generating processes ranging from seeming purely mathematical one to the closer to real-world time-series data.
 

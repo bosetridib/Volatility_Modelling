@@ -48,13 +48,9 @@ The estimation of the stable processes is done in the beginning. Apart from the 
 
 For the stable process, we have *wf_iteration* equals 1, and hence the residual sum squared can be found easily.
 
-<img src="https://github.com/bosetridib/Volatility_Modelling/blob/main/images/NLSstableEstA.png" width=400/>
-![alt text](https://github.com/bosetridib/Volatility_Modelling/blob/main/images/NLSstableEstA.png "NLS Stable Estimation for a")
+<img src="https://github.com/bosetridib/Volatility_Modelling/blob/main/images/NLSstableEstA.png" width=400/> <img src="https://github.com/bosetridib/Volatility_Modelling/blob/main/images/NLSstableEstB.png" width=400/>
 
-<img src="https://github.com/bosetridib/Volatility_Modelling/blob/main/images/NLSstableEstB.png" width=400/>
-![alt text](https://github.com/bosetridib/Volatility_Modelling/blob/main/images/NLSstableEstB.png "NLS Stable Estimated b")
-
-The solution of the last equation would give us the estimated parameter _b_. With that, we can calculate the estimated parameter _a_. In comparison, this method is found to be less efficient in practice: the estimated parameters with _nls_ method are much closer to the actual parameters used in generating the data, and the estimated _a_ is found to be _biased_ with the least square technique.
+The solution of the last equation would give us the estimated parameter _b_. With that, we can calculate the estimated parameter _a_. In comparison however, this method is found to be less efficient in practice: the estimated parameters with _nls_ method are much closer to the actual parameters used in generating the data, and the estimated _a_ is found to be _biased_ with the least square technique.
 
 ### Non Linear Volatile
 

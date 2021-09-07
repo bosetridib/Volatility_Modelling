@@ -24,7 +24,7 @@ In lucid terms, the idea suggests that apart from modeling the variance of the _
 
 In this section, we simulate volatility with the Weierstrass function. While the function is a sum of infinite series, number of terms we use in the series is specified with _wfi_iteration_ term. Objective of this part is to illustrate **the idea** with simulated stable and volatile periods, in which the trend of the time series fluctuates, rather than variance of the residuals.
 
-![alt text](https://github.com/bosetridib/Volatility_Modelling/blob/main/images/ModelSimulation1.jpeg "Part 1" = 250x250)
+<img src = "https://github.com/bosetridib/Volatility_Modelling/blob/main/images/ModelSimulation1.jpeg" width="400" height="300"/>
 
 The user may change the values of _a_, _b_, _n_, _std_dev_ and _wfi_iteration_ in the beginning - to see the result of different combinations of the parameters generating processes ranging from seeming purely mathematical one to the closer to real-world time-series data.
 

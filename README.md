@@ -67,3 +67,9 @@ In the first part the three parameters of the volatile processes are estimated b
 In all these illustration, the left panel superimposes the actual and estimated residuals while the right panel superimposes actual and estimated _volatile trend_.
 
 ![alt text](https://github.com/bosetridib/Volatility_Modelling/blob/main/images/NLSVolatile3.jpeg " NLS Volatile-3")
+
+## The Estimation
+
+The simulation and re-estimations in the above-mentioned sections seems sufficient to be applicable for a real-world data. The remaining objective is only to estimate the INR-USD exchange rate with the methods applied to the simulated data. The data is in the file _Exchange Rate Daily.xls_, and the _ERDailyEstimation.R_ file deals with the estimation of the ER (daily exchange rate).
+
+After loading the dataset, one may locate the relatively volatile and stable periods in the data.

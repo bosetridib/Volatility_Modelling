@@ -48,7 +48,7 @@ The estimation of the stable processes is done in the beginning. Apart from the 
 
 For the stable process, we have *wf_iteration* equals 1, and hence the residual sum squared can be found easily.
 
-<img src="https://github.com/bosetridib/Volatility_Modelling/blob/main/images/NLSstableEstA.png" width=400/> <img src="https://github.com/bosetridib/Volatility_Modelling/blob/main/images/NLSstableEstB.png" width=400/>
+<img src="https://github.com/bosetridib/Volatility_Modelling/blob/main/images/NLSstableEstA.png" width=450/> <img src="https://github.com/bosetridib/Volatility_Modelling/blob/main/images/NLSstableEstB.png" width=450/>
 
 The solution of the last equation would give us the estimated parameter _b_. With that, we can calculate the estimated parameter _a_. In comparison however, this method is found to be less efficient in practice: the estimated parameters with _nls_ method are much closer to the actual parameters used in generating the data, and the estimated _a_ is found to be _biased_ with the least square technique.
 
@@ -58,7 +58,7 @@ In this section, we try to estimate a volatile process, assuming the data is gen
 
 ![alt text](https://github.com/bosetridib/Volatility_Modelling/blob/main/images/NLSVolatile1.jpeg " NLS Volatile-1")
 
-In the first part the three parameters of the volatile processes are estimated by using the optim function, and in the second part the parameters are estimated by minimizing the RSS. Note that in both of these parts, the wf_iteration is estimated. It is in the third part where the wf_iteration is assumed to be known (estimates can be used from the above two parts).
+In the first part the three parameters of the volatile processes are estimated by using the optim function, and in the second part the parameters are estimated by minimizing the RSS. Note that in both of these parts, the wf_iteration is estimated. It is in the third part where the wf_iteration is assumed to be known (estimations from the above two parts can be used).
 
 ![alt text](https://github.com/bosetridib/Volatility_Modelling/blob/main/images/NLSVolatile2.jpeg " NLS Volatile-2")
 

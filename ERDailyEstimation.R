@@ -42,7 +42,7 @@ plot(varusd, type="l")
 
 deltausds1 <- deltausd[1:(10*br)]
 deltausdv <- deltausd[(10*br + 1):(36*br - 1)]
-deltausds2 <- deltausd[(36*br):n]
+deltausds2 <- deltausd[(36*br):n-1]
 
 xs1 <- 1:length(deltausds1)
 xv <- 1:length(deltausdv)
@@ -67,6 +67,12 @@ lines(xs1, fitted(model_nls_stable1))
 
 
 
+
+
+
+
+
+
 # Regression for s2 . . .
 
 init_parameters_stable <- list(alpha = 1, beta = 10)
@@ -77,6 +83,14 @@ summary(model_nls_stable2)
 # The line function plots the difference between actual trend and fitted model
 plot(xs2, deltausds2)
 lines(xs2, fitted(model_nls_stable2), col = 'blue')
+
+
+
+
+
+
+
+
 
 
 # Regression for v . . .
@@ -91,6 +105,46 @@ wf <- function(x,n,a,b)
   return(sum(v))
 }
 
+est_function <- function(parameters) {
+  
+  # Generating y-variable according to the Weierstrass function - first and
+  # second parameters are a and b while third one is the wf_iteration
+  y <- NULL
+  for (i in 1:n) {
+    y[i] <- wf(i,parameters[1],parameters[2],parameters[3])
+  }
+  
+  return( sum( (deltausdv - y)^2 ) )
+}
+
+# The setup to find the required coefficients are as below.
+
+val <- NULL
+for (i in seq(0,10, by = 0.5))
+{
+  for (j in seq(0,10, by = 0.5))
+  {
+    for (k in 2:20)
+    {
+      temp_est <- optim(c(k,i,j) , est_function)
+      val <- rbind(  val,  c(temp_est$par,temp_est$value) )
+    }
+  }
+}
+
+# The parameters with the minimum residual sum squared according to the optim
+# function.
+est_parameters1 <- val[val[,4] == min(val[,4])][1:3]
+# est_parameters1 <- c(5.250519, 1.376494, 99.367226)
+
+# Estimated wf_iteration with this method
+wf_iteration_est1 <- round(est_parameters1[1],0)
+
+# Estimated y with the above parameters
+y_est1 <- NULL
+for (i in 1:length(xv)) {
+  y_est1[i] <- wf(i , wf_iteration_est1, est_parameters1[2], est_parameters1[3])
+}
+
 plot(xv, deltausdv)
-yv <- wf(x=xv,n=5,a=acofs1,b=bcofs1)
-lines(xv,yv)
+lines(xv, y_est1, col = 'blue')

@@ -18,16 +18,21 @@ plot(er$Date[-n], deltausd, type="l")
 
 # --------------------- 1. Splitting Dataset --------------------- #
 
-# The change in variance from period to period is done with the breaking the
-# data in several small intervals. The plot gives us a visual representation
-# of how the variance of several periods in the data is significantly different.
+# The calculation of change in variance from period to period is done with
+# breaking the data in several small intervals. The plot gives us a visual
+# representation of how the variance of several periods in the data is
+# significantly different.
 
 varusd <- NULL
 br <- 100
 
 for (i in 1:(n/br))
 {
-  varusd[i] <- var(deltausd[((br*(i-1))+1) : (br*i)])
+  varusd[i] <- var(
+    deltausd[
+      ((br*(i-1))+1) : (br*i)
+    ]
+  )
 }
 
 plot(varusd, type="l")
@@ -36,14 +41,18 @@ plot(varusd, type="l")
 # ends at 37th break.
 
 deltausds1 <- deltausd[1:(10*br)]
-deltausdv <- deltausd[(10*br):(36*br)]
-deltausds2 <- deltausd[(37*br):(48*br)]
+deltausdv <- deltausd[(10*br + 1):(36*br - 1)]
+deltausds2 <- deltausd[(36*br):n]
 
 xs1 <- 1:length(deltausds1)
 xv <- 1:length(deltausdv)
 xs2 <- 1:length(deltausds2)
 
-# Regression for s1 . . .
+
+
+
+
+# ------------------ 2. Estimating Stable Periods ------------------ #
 
 coeffests1 <- function(betas1)
 {

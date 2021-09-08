@@ -1,4 +1,3 @@
-set.seed(1)
 # The Weierstrass function
 
 wf <- function(x, wf_iterations, a, b)
@@ -182,6 +181,3 @@ lines(x, y_volatile - fitted(model_nls_volatile), lty = 2)
 # Plot of the actual and estimated trend
 plot(x, y_volatile_trend, type = "l")
 lines(x, fitted(model_nls_volatile), lty = 2)
-
-
-rm(.Random.seed, envir=globalenv())

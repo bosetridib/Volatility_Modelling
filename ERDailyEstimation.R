@@ -54,54 +54,29 @@ xs2 <- 1:length(deltausds2)
 
 # ------------------ 2. Estimating Stable Periods ------------------ #
 
-coeffests1 <- function(betas1)
-{
-  (sum(deltausds1 * cos(betas1*xs1)) * sum(xs1*sin(betas1*2*xs1)))
-  - (2*sum(xs1*deltausds1*sin(betas1*xs1)) * sum((cos(betas1*xs2))^2))
-}
+init_parameters_stable <- list(alpha = 1, beta = 10)
 
-llimit <- 0.0001
-ulimit <- 10000
+model_nls_stable1 <- nls(deltausds1 ~ alpha*cos(beta*xs1), start = init_parameters_stable)
+summary(model_nls_stable1)
 
-bcofs1 <- uniroot(coeffests1, interval = c(llimit,ulimit), extendInt = "yes")$root
-acofs1 <- sum(deltausds1*cos(bcofs1 * xs1))/sum((cos(bcofs1*xs1))^2)
-
+# The line function plots the difference between actual trend and fitted model
 plot(xs1, deltausds1)
-lines(xs1, acofs1*cos(bcofs1*xs1), col="brown")
+lines(xs1, fitted(model_nls_stable1))
 
-resids1 <- deltausds1 - acofs1*cos(bcofs1*xs1)
-plot(xs1,resids1,type="l")
-
-library(normtest)
-jb.norm.test(resids1)
-qqnorm(resids1)
-qqline(resids1)
 
 
 
 
 # Regression for s2 . . .
 
-coeffests2 <- function(betas2)
-{
-  (sum(deltausds2 * cos(betas2*xs2)) * sum(xs2*sin(betas2*2*xs2)))
-  - (2*sum(xs2*deltausds2*sin(betas2*xs2)) * sum((cos(betas2*xs2))^2))
-}
+init_parameters_stable <- list(alpha = 1, beta = 10)
 
-bcofs2 <- uniroot(coeffests2, interval = c(llimit,ulimit), extendInt = "yes")$root
-acofs2 <- sum(deltausds2*cos(bcofs2 * xs2))/sum((cos(bcofs2*xs2))^2)
+model_nls_stable2 <- nls(deltausds2 ~ alpha*cos(beta*xs2), start = init_parameters_stable)
+summary(model_nls_stable2)
 
+# The line function plots the difference between actual trend and fitted model
 plot(xs2, deltausds2)
-lines(xs2, acofs2*cos(bcofs2*xs2), col="brown")
-
-resids2 <- deltausds2 - acofs2*cos(bcofs2*xs2)
-plot(xs2,resids2,type="l")
-
-jb.norm.test(normtest)
-jarque.bera.test(resids2)
-qqnorm(resids2)
-qqline(resids2)
-
+lines(xs2, fitted(model_nls_stable2), col = 'blue')
 
 
 # Regression for v . . .

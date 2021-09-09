@@ -75,7 +75,7 @@ lines(xs1, fitted(model_nls_stable1))
 
 # Regression for s2 . . .
 
-init_parameters_stable <- list(alpha = 1, beta = 10)
+init_parameters_stable <- list(alpha = 0.5, beta = 10)
 
 model_nls_stable2 <- nls(deltausds2 ~ alpha*cos(beta*xs2), start = init_parameters_stable)
 summary(model_nls_stable2)

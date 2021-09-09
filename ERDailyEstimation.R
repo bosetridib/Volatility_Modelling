@@ -63,7 +63,7 @@ summary(model_nls_stable1)
 plot(xs1, deltausds1)
 lines(xs1, fitted(model_nls_stable1))
 
-
+resids1 <- deltausds1 - fitted(model_nls_stable1)
 
 
 
@@ -84,6 +84,7 @@ summary(model_nls_stable2)
 plot(xs2, deltausds2)
 lines(xs2, fitted(model_nls_stable2), col = 'blue')
 
+resids2 <- deltausds2 - fitted(model_nls_stable2)
 
 
 
@@ -105,6 +106,12 @@ wf <- function(x,n,a,b)
   return(sum(v))
 }
 
+deltausdv_std <- NULL
+for (i in deltausdv) {
+  if (i < 0) deltausdv_std <- deltausdv + sd(resids1)
+  else deltausdv_std <- deltausdv - sd(resids1)
+}
+
 est_function <- function(parameters) {
   
   # Generating y-variable according to the Weierstrass function - first and
@@ -114,7 +121,7 @@ est_function <- function(parameters) {
     y[i] <- wf(i,parameters[1],parameters[2],parameters[3])
   }
   
-  return( sum( (deltausdv - y)^2 ) )
+  return( sum( (deltausdv_std - y)^2 ) )
 }
 
 # The setup to find the required coefficients are as below.
@@ -164,7 +171,7 @@ est_function <- function(parameters) {
     y[i] <- wf(i,parameters[1],parameters[2],parameters[3])
   }
   
-  return( sum( (deltausdv - y)^2 ) )
+  return( sum( (deltausdv_std - y)^2 ) )
 }
 
 val <- NULL
@@ -193,5 +200,5 @@ for (i in 1:length(xv)) {
   y_est1[i] <- wf(i , wf_iteration_est1, est_parameters1[2], est_parameters1[3])
 }
 
-plot(xv, deltausdv)
+plot(xv, deltausdv_std)
 lines(xv, y_est1, col = 'blue')

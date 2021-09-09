@@ -1,6 +1,8 @@
 # Volatility Modeling with R
 
-Volatility is present within several macroeconomic variables such as exchange rate, inflation, interest rate, etc. Due to its presence, econometric analysis and forecasting are faced with several difficulties. The volatility can be located in the sudden change in variance of the data in the _differenced_ form. This project attempts to model volatility differently than in the econometric treatment of volatility. It is assumed here that the variance is stable, while the trend is what causes the volatility. A rigorous economic interpretation of such a method is hard to carry out but is certainly not impossible. However, the objective of this project is to model volatility in the INR-USD exchange rate with such a method, hoping that it would be applicable in the general scenario.
+This project attempts to model volatility differently than in the econometric treatment of volatility. Volatility is present within several macroeconomic variables such as exchange rate, inflation, interest rate, etc. Due to its presence, econometric analysis and forecasting are faced with several difficulties. Volatility can be located in the sudden change in variance of the data in the _differenced_ form.
+
+Here, it is assumed that the variance is stable, while the trend is what causes the volatility. A rigorous economic interpretation of such a method is hard to carry out but is certainly not impossible. However, the objective of this project is to model volatility in the INR-USD exchange rate with such a method, hoping that it would be applicable in the general scenario.
 
 ## Installation
 
@@ -10,19 +12,19 @@ Volatility is present within several macroeconomic variables such as exchange ra
   * [MS-Windows](https://cran.r-project.org/bin/windows/base/ "link to install R")
   * [MacOS](https://cran.r-project.org/bin/macosx/ "link to install R")
 
-Nothing except the built-in packages are required within R. The project here is developed with [RStudio IDE](https://www.rstudio.com/products/rstudio/download/#download "Download RStudio") (installed on [ArcoLinux](https://arcolinux.com/) and on [Solus OS](https://getsol.us/home/)).
+Nothing except the _readxl_ package is required within R. The project here is developed with [RStudio IDE](https://www.rstudio.com/products/rstudio/download/#download "Download RStudio") (installed on [ArcoLinux](https://arcolinux.com/) and on [Solus OS](https://getsol.us/home/)).
 
 ## The Project and the Idea
 
 The project aims to illustrate the novel idea that volatility can be explained by the trend, and not by the variance. The project involves simulation and re-estimation of the simulated data such that those estimation techniques can be executed on the real-world data.
 
-In lucid terms, the idea suggests that apart from modeling the variance of the _differenced_ form of the data with the usual _GARCH_ modeling, one may consider modeling the trend which would be more intuitive. If one argues that the fluctuations in the data are not just _noise_ but also a fluctuation of _habit/behavior_ of the variable, then one might come to a better, or at least different, understanding of the economic interpretation behind the data.
+In lucid terms, the idea suggests that apart from modeling the variance of the _differenced_ form of the data with the usual _GARCH_ modeling, one may consider modeling the trend which would be more intuitive. The argument is that the fluctuations in the data are not just _noise_ but also a fluctuation of the inherent _habit/behavior_ of the variable. In this way, one might come to a better, or at least different, understanding of the economic interpretation behind the data.
 
 ## The Models
 
 ### ModelSimulation
 
-In this section, we simulate volatility with the [Weierstrass function](https://en.wikipedia.org/wiki/Weierstrass_function). While the function is a sum of infinite series, number of terms we use in the series is specified with _wfi_iteration_ term. Objective of this part is to illustrate **the idea** with simulated stable and volatile periods, in which the trend of the time series fluctuates, rather than variance of the residuals.
+In this section, we simulate volatility with the [Weierstrass function](https://en.wikipedia.org/wiki/Weierstrass_function). While the function is a sum of infinite series, number of terms we use in the series is specified with _wfi_iteration_ term. Objective of this part is to illustrate the **idea** with simulated stable and volatile periods, in which the trend of the time series fluctuates, rather than variance of the residuals.
 
 ![alt text](https://github.com/bosetridib/Volatility_Modelling/blob/main/images/ModelSimulation1.jpeg "Part 1")
 

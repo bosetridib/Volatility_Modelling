@@ -148,3 +148,50 @@ for (i in 1:length(xv)) {
 
 plot(xv, deltausdv)
 lines(xv, y_est1, col = 'blue')
+
+
+
+
+
+
+
+est_function <- function(parameters) {
+  
+  # Generating y-variable according to the Weierstrass function - first and
+  # second parameters are a and b while third one is the wf_iteration
+  y <- NULL
+  for (i in 1:length(xv)) {
+    y[i] <- wf(i,parameters[1],parameters[2],parameters[3])
+  }
+  
+  return( sum( (deltausdv - y)^2 ) )
+}
+
+val <- NULL
+for (i in seq(0,1, by = 0.005))
+{
+  for (j in seq(0,10, by = 1))
+  {
+    for (k in 2:20)
+    {
+      temp_est <- optim(c(k,i,j) , est_function)
+      val <- rbind(  val,  c(temp_est$par,temp_est$value) )
+    }
+  }
+}
+# The parameters with the minimum residual sum squared according to the optim
+# function.
+est_parameters1 <- val[val[,4] == min(val[,4])][1:3]
+# est_parameters1 <- c(5.70162558, 0.02856102, 8.41170090)
+
+# Estimated wf_iteration with this method
+wf_iteration_est1 <- round(est_parameters1[1],0)
+
+# Estimated y with the above parameters
+y_est1 <- NULL
+for (i in 1:length(xv)) {
+  y_est1[i] <- wf(i , wf_iteration_est1, est_parameters1[2], est_parameters1[3])
+}
+
+plot(xv, deltausdv)
+lines(xv, y_est1, col = 'blue')

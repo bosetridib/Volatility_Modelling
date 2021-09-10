@@ -54,15 +54,24 @@ xs2 <- 1:length(deltausds2)
 
 # ------------------ 2. Estimating Stable Periods ------------------ #
 
-init_parameters_stable <- list(alpha = 1, beta = 10)
+# The estimation of the first period
 
-model_nls_stable1 <- nls(deltausds1 ~ alpha*cos(beta*xs1), start = init_parameters_stable)
+# The nls method requires initial parameters, which are provided after some
+# trials
+init_parameters_stable1 <- list(alpha = 1, beta = 10)
+
+# Note again that the wf_iteration is 1 in the stable periods.
+model_nls_stable1 <- nls(
+  deltausds1 ~ alpha*cos(beta*xs1),
+  start = init_parameters_stable2
+)
 summary(model_nls_stable1)
 
 # The line function plots the difference between actual trend and fitted model
 plot(xs1, deltausds1)
 lines(xs1, fitted(model_nls_stable1))
 
+# Residual generation of the first period
 resids1 <- deltausds1 - fitted(model_nls_stable1)
 
 
@@ -73,17 +82,22 @@ resids1 <- deltausds1 - fitted(model_nls_stable1)
 
 
 
-# Regression for s2 . . .
+# The estimation of the second period, similar to the first one
 
-init_parameters_stable <- list(alpha = 0.5, beta = 10)
+init_parameters_stable2 <- list(alpha = 0.5, beta = 10)
 
-model_nls_stable2 <- nls(deltausds2 ~ alpha*cos(beta*xs2), start = init_parameters_stable)
+# The model
+model_nls_stable2 <- nls(
+  deltausds2 ~ alpha*cos(beta*xs2),
+  start = init_parameters_stable2
+)
 summary(model_nls_stable2)
 
 # The line function plots the difference between actual trend and fitted model
 plot(xs2, deltausds2)
 lines(xs2, fitted(model_nls_stable2), col = 'blue')
 
+# Residual generation in the second period
 resids2 <- deltausds2 - fitted(model_nls_stable2)
 
 
@@ -93,47 +107,47 @@ resids2 <- deltausds2 - fitted(model_nls_stable2)
 
 
 
+# ------------------ 3. Estimating Volatile Periods ------------------ #
 
-# Regression for v . . .
-
-wf <- function(x,n,a,b)
+wf <- function(x, wf_iterations, a, b)
 {
   v <- NULL
-  for(j in 1:n)
+  for(j in 1:wf_iterations)
   {
     v[j] <- (a^j)*cos((b^j)*x)
   }
   return(sum(v))
 }
 
-deltausdv_std <- NULL
-for (i in deltausdv) {
-  if (i < 0) deltausdv_std <- deltausdv + sd(resids1)
-  else deltausdv_std <- deltausdv - sd(resids1)
-}
+# The volatile data is standardized here. Considering that the residuals are
+# more or less stable throughout the data, we take the standard deviation of
+# the first period residual, and standardize the volatile data with that value.
 
-est_function <- function(parameters) {
+deltausdv_std <- deltausdv/sd(resids1)
+
+est_function_volatile <- function(parameters) {
   
   # Generating y-variable according to the Weierstrass function - first and
   # second parameters are a and b while third one is the wf_iteration
   y <- NULL
-  for (i in 1:n) {
+  for (i in 1:length(xv)) {
     y[i] <- wf(i,parameters[1],parameters[2],parameters[3])
   }
   
+  # Note that the standardized volatile data is used in estimation
   return( sum( (deltausdv_std - y)^2 ) )
 }
 
-# The setup to find the required coefficients are as below.
+# The setup to find the required coefficients are below.
 
 val <- NULL
-for (i in seq(0,10, by = 0.5))
+for (i in seq(0,10, by = 2))
 {
-  for (j in seq(0,10, by = 0.5))
+  for (j in seq(0,10, by = 2))
   {
     for (k in 2:20)
     {
-      temp_est <- optim(c(k,i,j) , est_function)
+      temp_est <- optim(c(k,i,j) , est_function_volatile)
       val <- rbind(  val,  c(temp_est$par,temp_est$value) )
     }
   }
@@ -154,51 +168,4 @@ for (i in 1:length(xv)) {
 }
 
 plot(xv, deltausdv)
-lines(xv, y_est1, col = 'blue')
-
-
-
-
-
-
-
-est_function <- function(parameters) {
-  
-  # Generating y-variable according to the Weierstrass function - first and
-  # second parameters are a and b while third one is the wf_iteration
-  y <- NULL
-  for (i in 1:length(xv)) {
-    y[i] <- wf(i,parameters[1],parameters[2],parameters[3])
-  }
-  
-  return( sum( (deltausdv_std - y)^2 ) )
-}
-
-val <- NULL
-for (i in seq(0,1, by = 0.005))
-{
-  for (j in seq(0,10, by = 1))
-  {
-    for (k in 2:20)
-    {
-      temp_est <- optim(c(k,i,j) , est_function)
-      val <- rbind(  val,  c(temp_est$par,temp_est$value) )
-    }
-  }
-}
-# The parameters with the minimum residual sum squared according to the optim
-# function.
-est_parameters1 <- val[val[,4] == min(val[,4])][1:3]
-# est_parameters1 <- c(5.70162558, 0.02856102, 8.41170090)
-
-# Estimated wf_iteration with this method
-wf_iteration_est1 <- round(est_parameters1[1],0)
-
-# Estimated y with the above parameters
-y_est1 <- NULL
-for (i in 1:length(xv)) {
-  y_est1[i] <- wf(i , wf_iteration_est1, est_parameters1[2], est_parameters1[3])
-}
-
-plot(xv, deltausdv_std)
 lines(xv, y_est1, col = 'blue')

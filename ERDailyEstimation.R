@@ -38,14 +38,18 @@ for (i in 1:(n/br))
 plot(varusd, type="l")
 
 # Now, the data seems to begin with unstable variance at 10th break, which then
-# ends at 37th break.
+# ends at 37th break. However, at 25th break, the unstability seems to change.
+# The data is splitted into two stable periods at both ends, and into two
+# volatile periods in between them.
 
-deltausds1 <- deltausd[1:(10*br)]
-deltausdv <- deltausd[(10*br + 1):(36*br - 1)]
+deltausds1 <- deltausd[1:(10*br - 1)]
+deltausdv1 <- deltausd[(10*br + 1):(25*br - 1)]
+deltausdv2 <- deltausd[25*br:(36*br - 1)]
 deltausds2 <- deltausd[(36*br):n-1]
 
 xs1 <- 1:length(deltausds1)
-xv <- 1:length(deltausdv)
+xv1 <- 1:length(deltausdv1)
+xv2 <- 1:length(deltausdv2)
 xs2 <- 1:length(deltausds2)
 
 
@@ -123,19 +127,20 @@ wf <- function(x, wf_iterations, a, b)
 # more or less stable throughout the data, we take the standard deviation of
 # the first period residual, and standardize the volatile data with that value.
 
-deltausdv_std <- deltausdv/sd(resids1)
+deltausdv_std1 <- deltausdv1/sd(resids1)
+deltausdv_std2 <- deltausdv2/sd(resids2)
 
-est_function_volatile <- function(parameters) {
+est_function_volatile1 <- function(parameters) {
   
   # Generating y-variable according to the Weierstrass function - first and
   # second parameters are a and b while third one is the wf_iteration
   y <- NULL
-  for (i in 1:length(xv)) {
+  for (i in 1:length(xv1)) {
     y[i] <- wf(i,parameters[1],parameters[2],parameters[3])
   }
   
   # Note that the standardized volatile data is used in estimation
-  return( sum( (deltausdv_std - y)^2 ) )
+  return( sum( (deltausdv_std1 - y)^2 ) )
 }
 
 # The setup to find the required coefficients are below.
@@ -147,7 +152,7 @@ for (i in seq(0,10, by = 2))
   {
     for (k in 2:20)
     {
-      temp_est <- optim(c(k,i,j) , est_function_volatile)
+      temp_est <- optim(c(k,i,j) , est_function_volatile1)
       val <- rbind(  val,  c(temp_est$par,temp_est$value) )
     }
   }
@@ -155,17 +160,70 @@ for (i in seq(0,10, by = 2))
 
 # The parameters with the minimum residual sum squared according to the optim
 # function.
-est_parameters1 <- val[val[,4] == min(val[,4])][1:3]
+est_parameters_volatile1 <- val[val[,4] == min(val[,4])][1:3]
 # est_parameters1 <- c(15.4369174, 0.1877411, 10.4375063)
 
 # Estimated wf_iteration with this method
-wf_iteration_est1 <- round(est_parameters1[1],0)
+wf_iteration_est1 <- round(est_parameters_volatile1[1],0)
 
 # Estimated y with the above parameters
-y_est_volatile <- NULL
-for (i in 1:length(xv)) {
-  y_est_volatile[i] <- wf(i , wf_iteration_est1, est_parameters1[2], est_parameters1[3])
+y_est_volatile1 <- NULL
+for (i in 1:length(xv1)) {
+  y_est_volatile1[i] <- wf(i , wf_iteration_est1, est_parameters_volatile1[2], est_parameters_volatile1[3])
 }
 
-plot(xv, deltausdv)
-lines(xv, y_est_volatile, col = 'blue')
+plot(xv1, deltausdv1)
+lines(xv1, y_est_volatile1, col = 'blue')
+
+
+
+
+
+
+
+
+
+est_function_volatile2 <- function(parameters) {
+  
+  # Generating y-variable according to the Weierstrass function - first and
+  # second parameters are a and b while third one is the wf_iteration
+  y <- NULL
+  for (i in 1:length(xv2)) {
+    y[i] <- wf(i,parameters[1],parameters[2],parameters[3])
+  }
+  
+  # Note that the standardized volatile data is used in estimation
+  return( sum( (deltausdv_std2 - y)^2 ) )
+}
+
+# The setup to find the required coefficients are below.
+
+val <- NULL
+for (i in seq(0,10, by = 2))
+{
+  for (j in seq(0,10, by = 2))
+  {
+    for (k in 2:20)
+    {
+      temp_est <- optim(c(k,i,j) , est_function_volatile2)
+      val <- rbind(  val,  c(temp_est$par,temp_est$value) )
+    }
+  }
+}
+
+# The parameters with the minimum residual sum squared according to the optim
+# function.
+est_parameters_volatile2 <- val[val[,4] == min(val[,4])][1:3]
+# est_parameters1 <- c(15.4369174, 0.1877411, 10.4375063)
+
+# Estimated wf_iteration with this method
+wf_iteration_est2 <- round(est_parameters_volatile2[1],0)
+
+# Estimated y with the above parameters
+y_est_volatile2 <- NULL
+for (i in 1:length(xv2)) {
+  y_est_volatile2[i] <- wf(i , wf_iteration_est2, est_parameters_volatile2[2], est_parameters_volatile2[3])
+}
+
+plot(xv2, deltausdv2)
+lines(xv2, y_est_volatile2, col = 'blue')

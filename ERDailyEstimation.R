@@ -42,9 +42,9 @@ plot(varusd, type="l")
 # The data is splitted into two stable periods at both ends, and into two
 # volatile periods in between them.
 
-deltausds1 <- deltausd[1:(10*br - 1)]
+deltausds1 <- deltausd[1:(10*br)]
 deltausdv1 <- deltausd[(10*br + 1):(25*br - 1)]
-deltausdv2 <- deltausd[25*br:(36*br - 1)]
+deltausdv2 <- deltausd[(25*br):(36*br - 1)]
 deltausds2 <- deltausd[(36*br):n-1]
 
 xs1 <- 1:length(deltausds1)

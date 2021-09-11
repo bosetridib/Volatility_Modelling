@@ -146,11 +146,11 @@ est_function_volatile1 <- function(parameters) {
 # The setup to find the required coefficients are below.
 
 val <- NULL
-for (i in seq(0,10, by = 1))
+for (i in seq(0,10, by = 2))
 {
-  for (j in seq(0,10, by = 1))
+  for (j in seq(0,10, by = 2))
   {
-    for (k in 2:60)
+    for (k in 2:30)
     {
       temp_est <- optim(c(k,i,j) , est_function_volatile1)
       val <- rbind(  val,  c(temp_est$par,temp_est$value) )
@@ -161,7 +161,7 @@ for (i in seq(0,10, by = 1))
 # The parameters with the minimum residual sum squared according to the optim
 # function.
 est_parameters_volatile1 <- val[val[,4] == min(val[,4])][1:3]
-# est_parameters_volatile1 <- c(15.4369174, 0.1877411, 10.4375063)
+# est_parameters_volatile1 <- c(3.3504490, 0.2432224, 4.1546465)
 
 # Estimated wf_iteration with this method
 wf_iteration_est1 <- round(est_parameters_volatile1[1],0)
@@ -199,11 +199,11 @@ est_function_volatile2 <- function(parameters) {
 # The setup to find the required coefficients are below.
 
 val <- NULL
-for (i in seq(0,10, by = 1))
+for (i in seq(0,10, by = 2))
 {
-  for (j in seq(0,10, by = 1))
+  for (j in seq(0,10, by = 2))
   {
-    for (k in 2:60)
+    for (k in 2:40)
     {
       temp_est <- optim(c(k,i,j) , est_function_volatile2)
       val <- rbind(  val,  c(temp_est$par,temp_est$value) )
@@ -214,7 +214,7 @@ for (i in seq(0,10, by = 1))
 # The parameters with the minimum residual sum squared according to the optim
 # function.
 est_parameters_volatile2 <- val[val[,4] == min(val[,4])][1:3]
-# est_parameters_volatile2 <- c(15.4369174, 0.1877411, 10.4375063)
+# est_parameters_volatile2 <- c(7.3226134,-0.2456882, 6.2406684)
 
 # Estimated wf_iteration with this method
 wf_iteration_est2 <- round(est_parameters_volatile2[1],0)

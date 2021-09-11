@@ -67,13 +67,13 @@ init_parameters_stable1 <- list(alpha = 1, beta = 10)
 # Note again that the wf_iteration is 1 in the stable periods.
 model_nls_stable1 <- nls(
   deltausds1 ~ alpha*cos(beta*xs1),
-  start = init_parameters_stable2
+  start = init_parameters_stable1
 )
 summary(model_nls_stable1)
 
 # The line function plots the difference between actual trend and fitted model
 plot(xs1, deltausds1)
-lines(xs1, fitted(model_nls_stable1))
+lines(xs1, fitted(model_nls_stable1), col = 'blue')
 
 # Residual generation of the first period
 resids1 <- deltausds1 - fitted(model_nls_stable1)

@@ -156,16 +156,16 @@ for (i in seq(0,10, by = 2))
 # The parameters with the minimum residual sum squared according to the optim
 # function.
 est_parameters1 <- val[val[,4] == min(val[,4])][1:3]
-# est_parameters1 <- c(5.250519, 1.376494, 99.367226)
+# est_parameters1 <- c(15.4369174, 0.1877411, 10.4375063)
 
 # Estimated wf_iteration with this method
 wf_iteration_est1 <- round(est_parameters1[1],0)
 
 # Estimated y with the above parameters
-y_est1 <- NULL
+y_est_volatile <- NULL
 for (i in 1:length(xv)) {
-  y_est1[i] <- wf(i , wf_iteration_est1, est_parameters1[2], est_parameters1[3])
+  y_est_volatile[i] <- wf(i , wf_iteration_est1, est_parameters1[2], est_parameters1[3])
 }
 
 plot(xv, deltausdv)
-lines(xv, y_est1, col = 'blue')
+lines(xv, y_est_volatile, col = 'blue')

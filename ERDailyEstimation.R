@@ -128,7 +128,7 @@ wf <- function(x, wf_iterations, a, b)
 # the first period residual, and standardize the volatile data with that value.
 
 deltausdv_std1 <- deltausdv1/sd(resids1)
-deltausdv_std2 <- deltausdv2/sd(resids2)
+deltausdv_std2 <- deltausdv2/sd(resids1)
 
 est_function_volatile1 <- function(parameters) {
   

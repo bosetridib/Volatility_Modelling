@@ -42,6 +42,8 @@ plot(varusd, type="l")
 # The data is splitted into two stable periods at both ends, and into two
 # volatile periods in between them.
 
+abline(v = c(10, 25, 36))
+
 deltausds1 <- deltausd[1:(10*br)]
 deltausdv1 <- deltausd[(10*br + 1):(25*br - 1)]
 deltausdv2 <- deltausd[(25*br):(36*br - 1)]
@@ -128,7 +130,7 @@ wf <- function(x, wf_iterations, a, b)
 # the first period residual, and standardize the volatile data with that value.
 
 deltausdv_std1 <- deltausdv1/sd(resids1)
-deltausdv_std2 <- deltausdv2/sd(resids1)
+deltausdv_std2 <- deltausdv2/sd(resids2)
 
 est_function_volatile1 <- function(parameters) {
   

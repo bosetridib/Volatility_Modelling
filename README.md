@@ -74,4 +74,48 @@ In all these illustration, the left panel superimposes the actual and estimated 
 
 The simulation and re-estimations in the above-mentioned sections seems sufficient to be applicable for a real-world data. The remaining objective is only to estimate the INR-USD exchange rate with the methods applied to the simulated data. The data is in the file _Exchange Rate Daily.xls_, and the _ERDailyEstimation.R_ file deals with the estimation of the ER (daily exchange rate).
 
-After loading the dataset, one may locate the relatively volatile and stable periods in the data.
+The first section deals with splitting the data in terms of volatile and stable periods. The variance of periods with 100 values are calculated, and then the split takes place concerning in which sets of periods the data seems volatile and stable.
+
+![alt text](https://github.com/bosetridib/Volatility_Modelling/blob/main/images/ERvar.jpeg " Exchange rate Variance")
+
+The data is then split into four parts. The first and the last parts seems stable, while the second and third seems volatile. Moreover, the second and third parts are also treated differently.
+
+The second section deals with estimating the stable periods. This is done through the usual _nls_ function in R, which was found to be quite useful in the simulations. The estimated parameters in both parts seems to be closer.
+
+``` R
+Formula: deltausds1 ~ alpha * cos(beta * xs1)
+
+Parameters:
+       Estimate Std. Error  t value Pr(>|t|)    
+alpha  0.009856   0.008625    1.143    0.253    
+beta   9.999674   0.001516 6597.203   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.1929 on 998 degrees of freedom
+
+Number of iterations to convergence: 42 
+Achieved convergence tolerance: 1.047e-06
+```
+``` R
+Formula: deltausds2 ~ alpha * cos(beta * xs2)
+
+Parameters:
+       Estimate Std. Error   t value Pr(>|t|)    
+alpha 4.463e-03  2.209e-03     2.021   0.0435 *  
+beta  1.000e+01  7.078e-04 14132.866   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.05432 on 1208 degrees of freedom
+
+Number of iterations to convergence: 15 
+Achieved convergence tolerance: 9.805e-06
+```
+This resembles with our hypothesis of stable periods having, more-or-less, same properties.
+
+The third part deals with estimating the volatile data. In this section, the volatile data is first standardized with respect to the residuals, and then estimated with loops. The estimated parameters after the iterations are noted in the comments. The plot of the data including the estimated trend of the data is given below.
+
+![alt text](https://github.com/bosetridib/Volatility_Modelling/blob/main/images/ERVolatile1.jpeg " ER Volatile-1")
+
+As can be seen, the trend is somewhat capturing the volatility.

@@ -174,7 +174,7 @@ for (i in 1:length(xv1)) {
   y_est_volatile1[i] <- wf(i , wf_iteration_est1, est_parameters_volatile1[2], est_parameters_volatile1[3])
 }
 
-plot(xv1, deltausdv1)
+plot(xv1, deltausdv1, type = "line")
 lines(xv1, y_est_volatile1, col = 'blue')
 
 

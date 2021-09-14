@@ -114,8 +114,8 @@ Achieved convergence tolerance: 9.805e-06
 ```
 This resembles with our hypothesis of stable periods having, more-or-less, same properties.
 
-The third part deals with estimating the volatile data. In this section, the volatile data is first standardized with respect to the residuals, and then estimated with loops. The estimated parameters after the iterations are noted in the comments. The plot of the data including the estimated trend of the data is given below.
+The third part deals with estimating the volatile data. In this section, the volatile data is first standardized with respect to the expected residual's standard deviation, and then estimated with loops. The estimated parameters after the iterations are noted in the comments. The plot of the data including the estimated trend of the data is given below.
 
 ![alt text](https://github.com/bosetridib/Volatility_Modelling/blob/main/images/ERVolatile1.jpeg " ER Volatile-1")
 
-As can be seen, the trend is somewhat capturing the volatility.
+As can be seen, the trend is somewhat capturing the volatility. With standardizing the data with the first stable period's residual's standard deviation (which is less than 1), the spread of the trend is increased respectively.
